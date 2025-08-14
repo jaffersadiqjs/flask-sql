@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Create User' if mode=='create' else 'Edit User' }}{% endblock %}
+{% block content %}
+<h2>{{ 'Create User' if mode=='create' else 'Edit User' }}</h2>
+<form method="post" class="bg-white p-3 rounded border">
+  <div class="mb-3">
+    <label class="form-label">Name</label>
+    <input name="name" class="form-control" required
+           value="{{ '' if not user else user.name }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Email</label>
+    <input name="email" type="email" class="form-control" required
+           value="{{ '' if not user else user.email }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Password</label>
+    <input name="password" type="text" class="form-control" {{ 'required' if mode=='create' }}>
+    {% if mode=='edit' %}
+      <div class="form-text">Leave blank to keep existing password.</div>
+    {% endif %}
+  </div>
+  <button class="btn btn-primary">{{ 'Create' if mode=='create' else 'Update' }}</button>
+  <a class="btn btn-outline-secondary" href="{{ url_for('list_users') }}">Cancel</a>
+</form>
+{% endblock %}
